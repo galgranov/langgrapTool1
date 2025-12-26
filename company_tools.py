@@ -3,11 +3,19 @@ Tools for the Company Research Agent.
 Each tool is a standalone function that can be used by the agent.
 """
 import requests
+import time
 from typing import Dict, Any
 from langchain_core.tools import tool
+from datadog_tracing import trace_tool
+from datadog_metrics import track_api_call
+from datadog_logger import get_logger, log_api_call
+
+# Initialize logger
+logger = get_logger(__name__, agent_name="company_tools")
 
 
 @tool
+@trace_tool("get_company_info", api_name="yahoo_finance")
 def get_company_info_tool(ticker: str) -> Dict[str, Any]:
     """Fetch company information using Yahoo Finance API.
     
@@ -20,8 +28,11 @@ def get_company_info_tool(ticker: str) -> Dict[str, Any]:
     if not ticker:
         return {"success": False, "error": "No ticker provided", "data": None}
     
+    start_time = time.time()
+    ticker = ticker.upper()
+    
     try:
-        ticker = ticker.upper()
+        logger.info(f"Fetching company info for {ticker}")
         
         # Using Yahoo Finance alternative API
         url = f"https://query1.finance.yahoo.com/v10/finance/quoteSummary/{ticker}"
@@ -34,6 +45,7 @@ def get_company_info_tool(ticker: str) -> Dict[str, Any]:
         }
         
         response = requests.get(url, params=params, headers=headers, timeout=10)
+        duration = time.time() - start_time
         
         if response.status_code == 200:
             data = response.json()
