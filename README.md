@@ -50,7 +50,7 @@ python company_research_agent.py
 
 ---
 
-### 4. 🎯 MetaAgent (NEW!)
+### 4. 🎯 MetaAgent
 Orchestrates company and person agents for comprehensive executive research.
 
 **Features:**
@@ -65,6 +65,26 @@ python meta_agent.py
 ```
 
 **See:** [MetaAgent Documentation](META_AGENT_README.md)
+
+---
+
+### 5. 🤖 A2A Protocol (NEW!)
+Agent-to-Agent communication protocol enabling direct communication between agents.
+
+**Features:**
+- Message bus for routing between agents
+- Request/Response communication pattern
+- Broadcast notifications
+- Conversation threading
+- Multi-agent workflow orchestration
+- Interactive demo mode
+
+**Run:**
+```bash
+python a2a_demo.py
+```
+
+**See:** [A2A Protocol Documentation](A2A_README.md)
 
 ---
 
@@ -90,6 +110,13 @@ lang/
 ├── meta_agent.py                  # MetaAgent orchestrator
 ├── META_AGENT_README.md           # MetaAgent docs
 │
+├── a2a_protocol.py                # A2A protocol core
+├── a2a_company_agent.py           # Company agent with A2A
+├── a2a_person_agent.py            # Person agent with A2A
+├── a2a_coordinator.py             # Coordinator agent
+├── a2a_demo.py                    # A2A interactive demo
+├── A2A_README.md                  # A2A documentation
+│
 ├── visualize_graph.py             # Graph visualization
 └── audio_output/                  # Generated audio reports
 ```
@@ -105,25 +132,31 @@ pip install langgraph langchain-core requests
 
 ### Quick Start
 
-1. **Try the MetaAgent** (most comprehensive):
+1. **Try the A2A Protocol Demo** (Agent-to-Agent communication):
+   ```bash
+   python a2a_demo.py
+   # Select interactive mode and try: company AAPL, person Tim Cook, full TSLA
+   ```
+
+2. **Try the MetaAgent** (Orchestrated workflow):
    ```bash
    python meta_agent.py
    # Enter a stock ticker: AAPL
    ```
 
-2. **Research a person**:
+3. **Research a person**:
    ```bash
    python person_research_agent.py
    # Enter a name: Elon Musk
    ```
 
-3. **Research a company**:
+4. **Research a company**:
    ```bash
    python company_research_agent.py
    # Enter a ticker: GOOGL
    ```
 
-4. **Check weather**:
+5. **Check weather**:
    ```bash
    python city_weather_agent.py
    # Enter a city: Paris
@@ -177,6 +210,10 @@ Input (Ticker) → Company Research → Executive Fetch →
 - ✅ Error handling and graceful degradation
 - ✅ Rich console output with emojis
 - ✅ Orchestration of multiple agents
+- ✅ **Agent-to-Agent communication protocol**
+- ✅ **Message bus for routing**
+- ✅ **Request/Response patterns**
+- ✅ **Conversation threading**
 - ✅ Real-time API data
 - ✅ Comprehensive reporting
 
